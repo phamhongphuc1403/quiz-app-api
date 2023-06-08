@@ -7,8 +7,7 @@ namespace quiz_app_api.src.Core.Database.Models
     public class QuestionModel
     {
         [Key][DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int id { get; set; }
-        public int category_id { get; set; }
-        public string description { get; set; } = string.Empty;
+        public string question { get; set; } = string.Empty;
         public virtual ICollection<UserQuestionModel> users_questions { get; set; }
         public virtual ICollection<AnswerModel> answers { get; set; }
         public QuestionModel()

@@ -12,7 +12,7 @@ using quiz_app_api.src.Core.Database;
 namespace quiz_app_api.src.Core.Database.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230608101821_init_database")]
+    [Migration("20230608162554_init_database")]
     partial class init_database
     {
         /// <inheritdoc />
@@ -44,7 +44,6 @@ namespace quiz_app_api.src.Core.Database.Migrations
                         .HasColumnType("nvarchar(250)");
 
                     b.Property<string>("refresh_token")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("username")
@@ -65,10 +64,11 @@ namespace quiz_app_api.src.Core.Database.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
-                    b.Property<int>("answer")
-                        .HasColumnType("int");
+                    b.Property<string>("answer")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("is_true")
+                    b.Property<bool>("is_correct")
                         .HasColumnType("bit");
 
                     b.Property<int>("question_id")
@@ -89,10 +89,7 @@ namespace quiz_app_api.src.Core.Database.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
-                    b.Property<int>("category_id")
-                        .HasColumnType("int");
-
-                    b.Property<string>("description")
+                    b.Property<string>("question")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

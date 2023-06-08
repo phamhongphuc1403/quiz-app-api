@@ -9,6 +9,7 @@ namespace quiz_app_api.src.Core.Modules.Auth.Dto
     {
         [Required]
         [MaxLength(100)]
+        [MinLength(4)]
         public string username { get; set; } = string.Empty;
         [Required]
         [EmailAddress]

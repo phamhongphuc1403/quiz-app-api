@@ -8,8 +8,8 @@ namespace quiz_app_api.src.Core.Database.Models
     {
         [Key][DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int id { get; set; }
         public int question_id { get; set; }
-        public int answer { get; set; }
-        public bool is_true { get; set; }
+        public string answer { get; set; } = string.Empty;
+        public bool is_correct { get; set; }
         public virtual QuestionModel question { get; set; }
     }
 }
