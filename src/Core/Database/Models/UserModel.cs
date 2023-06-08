@@ -13,10 +13,10 @@ namespace quiz_app_api.src.Core.Database.Model
         [StringLength(250)] public string email { get; set; } = string.Empty;
         [MaxLength(250)] public string password { get; set; } = string.Empty;
         public string? refresh_token { get; set; } = string.Empty;
-        public virtual ICollection<UserQuestionModel> users_questions { get; set; }
+        public virtual ICollection<QuizModel> quizzes { get; set; }
         public UserModel()
         {
-            users_questions = new List<UserQuestionModel>();
+            quizzes = new List<QuizModel>();
         }
     }
 }

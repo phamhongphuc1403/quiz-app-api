@@ -8,11 +8,11 @@ namespace quiz_app_api.src.Core.Database.Models
     {
         [Key][DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int id { get; set; }
         public string question { get; set; } = string.Empty;
-        public virtual ICollection<UserQuestionModel> users_questions { get; set; }
+        public virtual ICollection<QuizModel> quizzes { get; set; }
         public virtual ICollection<AnswerModel> answers { get; set; }
         public QuestionModel()
         {
-            users_questions = new List<UserQuestionModel>();
+            quizzes = new List<QuizModel>();
             answers = new List<AnswerModel>();
         }
     }
