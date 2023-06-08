@@ -17,8 +17,7 @@ namespace quiz_app_api.src.Core.Database.Migrations
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    category_id = table.Column<int>(type: "int", nullable: false),
-                    description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    question = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -34,7 +33,7 @@ namespace quiz_app_api.src.Core.Database.Migrations
                     username = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     email = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     password = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    refresh_token = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    refresh_token = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -48,8 +47,8 @@ namespace quiz_app_api.src.Core.Database.Migrations
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     question_id = table.Column<int>(type: "int", nullable: false),
-                    answer = table.Column<int>(type: "int", nullable: false),
-                    is_true = table.Column<bool>(type: "bit", nullable: false)
+                    answer = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    is_correct = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
