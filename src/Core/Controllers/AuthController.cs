@@ -6,7 +6,7 @@ using quiz_app_api.src.Packages.HttpExceptions;
 
 namespace quiz_app_api.src.Core.Controllers
 {
-    [Route("api/auth")]
+    [Route("api/v1/auth")]
     [ApiController]
     public class AuthController : ControllerBase
     {
