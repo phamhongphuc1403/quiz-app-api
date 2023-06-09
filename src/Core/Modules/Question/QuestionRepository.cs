@@ -1,6 +1,7 @@
 ﻿using quiz_app_api.src.Core.Database.Models;
 using quiz_app_api.src.Core.Database;
 using Microsoft.EntityFrameworkCore;
+using quiz_app_api.src.Core.Enums;
 
 namespace quiz_app_api.src.Core.Modules.Question
 {
@@ -15,7 +16,7 @@ namespace quiz_app_api.src.Core.Modules.Question
         {
             return _context.Questions
                 .OrderBy(x => Guid.NewGuid())
-                .Take(5)
+                .Take(ScoreEnum.MAX_SCORE)
                 .Include(q => q.answers)
                 .ToList();
         }

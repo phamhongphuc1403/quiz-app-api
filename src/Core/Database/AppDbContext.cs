@@ -16,7 +16,7 @@ namespace quiz_app_api.src.Core.Database
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<QuizModel>()
-                .HasKey(e => new { e.question_id, e.user_id, e.id });
+                .HasKey(e => new { e.question_id, e.id });
 
             modelBuilder.Entity<QuizModel>()
                 .HasOne(t => t.user)

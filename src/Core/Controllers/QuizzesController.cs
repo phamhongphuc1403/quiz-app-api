@@ -7,7 +7,7 @@ using quiz_app_api.src.Packages.HttpExceptions;
 
 namespace quiz_app_api.src.Core.Controllers
 {
-    [Route("api/quizzes")]
+    [Route("api/v1")]
     [ApiController]
     public class QuizzesController : ControllerBase
     {
@@ -17,7 +17,7 @@ namespace quiz_app_api.src.Core.Controllers
             quizService = new QuizService(context);
         }
 
-        [HttpPost("take-quiz")]
+        [HttpPost("quizzes/take-quiz")]
         [Authorize]
         public async Task<IActionResult> TakeQuiz()
         {
@@ -33,7 +33,7 @@ namespace quiz_app_api.src.Core.Controllers
             }
         }
 
-        [HttpPost("{quizId}/questions/{questionId}/answer")]
+        [HttpPost("quizzes/{quizId}/questions/{questionId}/answer")]
         [Authorize]
         public async Task<IActionResult> ValidateAnswer(string quizId, int questionId, AnswerQuestionDto model)
         {
@@ -42,6 +42,38 @@ namespace quiz_app_api.src.Core.Controllers
                 var idClaim = HttpContext.User.FindFirst("id")?.Value;
 
                 return Ok(await quizService.ValidateAnswer(quizId, questionId, Convert.ToInt32(idClaim), model));
+            }
+            catch (HttpException ex)
+            {
+                return StatusCode((int)ex.statusCode, ex.response);
+            }
+        }
+
+        [HttpGet("users/me/results")]
+        [Authorize]
+        public IActionResult GetResults()
+        {
+            try
+            {
+                var idClaim = HttpContext.User.FindFirst("id")?.Value;
+
+                return Ok(quizService.GetUserResults(Convert.ToInt32(idClaim)));
+            }
+            catch (HttpException ex)
+            {
+                return StatusCode((int)ex.statusCode, ex.response);
+            }
+        }
+
+        [HttpGet("users/me/results/{quizId}")]
+        [Authorize]
+        public IActionResult GetResult(string quizId)
+        {
+            try
+            {
+                var idClaim = HttpContext.User.FindFirst("id")?.Value;
+
+                return Ok(quizService.GetUserResult(Convert.ToInt32(idClaim), quizId));
             }
             catch (HttpException ex)
             {
