@@ -19,5 +19,17 @@ namespace quiz_app_api.src.Core.Modules.Question
                 .Include(q => q.answers)
                 .ToList();
         }
+        public QuizModel? GetQuestionByIdAndQuizIdAndUserId(int questionId, string quizId, int userId)
+        {
+            return _context.Quizzes
+                .Include(quiz => quiz.question)
+                .Include(quiz => quiz.question.answers)
+                .FirstOrDefault(quiz => quiz.id == quizId && quiz.question_id == questionId && quiz.user_id == userId);
+        }
+
+        public AnswerModel? GetAnswerByIdAndQuestionid(int answerId, int questionId)
+        {
+            return _context.Answers.FirstOrDefault(answer => answer.id == answerId && answer.question_id == questionId);
+        }
     }
 }
