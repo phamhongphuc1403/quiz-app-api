@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using quiz_app_api.src.Core.Database;
+using quiz_app_api.src.Core.Modules.Quiz.Dto;
 using quiz_app_api.src.Core.Modules.Quiz.Service;
 using quiz_app_api.src.Packages.HttpExceptions;
 
@@ -25,6 +26,22 @@ namespace quiz_app_api.src.Core.Controllers
                 var idClaim = HttpContext.User.FindFirst("id")?.Value;
 
                 return Ok(await quizService.TakeQuiz(Convert.ToInt32(idClaim)));
+            }
+            catch (HttpException ex)
+            {
+                return StatusCode((int)ex.statusCode, ex.response);
+            }
+        }
+
+        [HttpPost("{quizId}/questions/{questionId}/answer")]
+        [Authorize]
+        public async Task<IActionResult> ValidateAnswer(string quizId, int questionId, AnswerQuestionDto model)
+        {
+            try
+            {
+                var idClaim = HttpContext.User.FindFirst("id")?.Value;
+
+                return Ok(await quizService.ValidateAnswer(quizId, questionId, Convert.ToInt32(idClaim), model));
             }
             catch (HttpException ex)
             {

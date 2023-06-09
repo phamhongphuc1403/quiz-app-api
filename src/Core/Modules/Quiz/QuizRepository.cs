@@ -1,5 +1,6 @@
 ﻿using quiz_app_api.src.Core.Database;
 using quiz_app_api.src.Core.Database.Models;
+using quiz_app_api.src.Packages.HttpExceptions;
 
 namespace quiz_app_api.src.Core.Modules.Quiz
 {
@@ -12,11 +13,28 @@ namespace quiz_app_api.src.Core.Modules.Quiz
         }
         public async Task<List<QuizModel>> CreateQuiz(List<QuizModel> quizzes)
         {
-            _context.Quizzes.AddRange(quizzes);
+            try
+            {
+                _context.Quizzes.AddRange(quizzes);
 
-            await _context.SaveChangesAsync();
+                await SaveChangesAsync();
 
-            return quizzes;
+                return quizzes;
+            } catch (Exception ex)
+            {
+                throw new InternalException(ex.Message);
+            }
+        }
+
+        public async Task SaveChangesAsync()
+        {
+            try
+            {
+                await _context.SaveChangesAsync();
+            } catch (Exception ex)
+            {
+                throw new InternalException(ex.Message);
+            }
         }
     }
 }

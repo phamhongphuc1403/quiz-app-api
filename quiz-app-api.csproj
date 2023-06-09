@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <Folder Include="src\Core\Database\Migrations\" />
+    <Folder Include="src\Core\Modules\Question\Service\" />
   </ItemGroup>
 
 </Project>
