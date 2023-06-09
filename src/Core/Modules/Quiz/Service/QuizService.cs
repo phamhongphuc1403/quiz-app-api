@@ -145,7 +145,12 @@ namespace quiz_app_api.src.Core.Modules.Quiz.Service
         {
             Optional.Of(userRepository.GetUserById(userId)).ThrowIfNotPresent(new BadRequestException(UserEnum.USER_NOT_FOUND));
 
-            List<QuizModel> quizzes = Optional.Of(quizRepository.GetQuizListByIdAndUserId(quizId, userId)).ThrowIfNotPresent(new BadRequestException(QuizEnum.QUIZ_NOT_FOUND)).Get();
+            List<QuizModel> quizzes = quizRepository.GetQuizListByIdAndUserId(quizId, userId);
+
+            if (quizzes.Count == 0)
+            {
+                throw new BadRequestException(QuizEnum.QUIZ_NOT_FOUND);
+            }
 
             return new
             {
